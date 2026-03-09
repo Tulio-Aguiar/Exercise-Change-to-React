@@ -1,0 +1,39 @@
+# Regras do Projeto
+
+## Stack
+
+- React 19
+- TypeScript 5.9 (strict mode)
+- Vite 7
+- Tailwind CSS v4
+- ESLint + Prettier
+
+## TypeScript
+
+- Sempre usar `import type` para importações de tipo puro
+- Nunca usar `any` — usar `unknown` quando o tipo for incerto
+- Preferir `type` sobre `interface` para definição de tipos
+- Nomear tipos com PascalCase
+
+## React
+
+- Sempre usar arrow functions para componentes
+- Nomear componentes com PascalCase
+- Nomear arquivos de componentes com PascalCase (ex: `Button.tsx`)
+- Props sempre tipadas com `type`, nunca inline
+- Nunca usar `React.FC` — tipar props diretamente
+
+## Tailwind v4
+
+- Usar apenas sintaxe Tailwind v4
+- Não usar `tailwind.config.js` — configurações vão no CSS via `@theme`
+- A diretiva de importação é `@import "tailwindcss"`, nunca `@tailwind base`
+
+## Imports
+
+- Usar sempre path alias `@/` para imports internos
+- Nunca usar caminhos relativos com `../`
+
+## Commits
+
+- Seguir Conventional Commits: feat, fix, chore, refactor, docs, style, test
