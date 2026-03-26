@@ -1,8 +1,23 @@
 {
-  "name": "Code and Safety",
-  "private": true,
+  "name": "code-and-safety",
   "version": "0.0.0",
+  "private": true,
+  "description": "Conversão de um arquivo HTML estático (`grade_react_ts_abril2026.html`) em uma aplicação React + TypeScript funcional. O arquivo original é uma grade de estudos com design visual próprio — tema escuro, tipografia Syne + DM Mono, paleta com acentos em amarelo-limão, azul e verde.",
+  "homepage": "https://github.com/Tulio-Aguiar/Exercise-Change-to-React#readme",
+  "bugs": {
+    "url": "https://github.com/Tulio-Aguiar/Exercise-Change-to-React/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tulio-Aguiar/Exercise-Change-to-React.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "eslint.config.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
     "dev": "vite --open",
     "build": "tsc -b && vite build",

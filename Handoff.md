@@ -564,3 +564,203 @@ npx prettier --write "src/**/*.{ts,tsx}"  # Formatar
 | `eslint.config.js`          | Flat config + Prettier integrado               |
 | `prettier.config.js`        | Formatação: sem ponto-e-vírgula, aspas simples |
 | `.husky/pre-commit`         | Executa lint-staged antes de cada commit       |
+
+# Handoff — Exercise Change to React
+
+> Gerado em 26/03/2026. Cole este arquivo na próxima janela do Claude como contexto de entrada.
+
+---
+
+## Repositórios
+
+| Projeto       | URL                                                      | Local                                                               |
+| ------------- | -------------------------------------------------------- | ------------------------------------------------------------------- |
+| Template      | https://github.com/Tulio-Aguiar/Code-And-Safety          | `C:\Users\tulio.aguiar\Documents\projetos\code-and-safety`          |
+| Projeto ativo | https://github.com/Tulio-Aguiar/Exercise-Change-to-React | `C:\Users\tulio.aguiar\Documents\projetos\Exercise Change to React` |
+
+---
+
+## Objetivo
+
+Converter o arquivo `grade_react_ts_abril2026.html` (grade de estudos estática, tema escuro, tipografia Syne + DM Mono) em aplicação React + TypeScript funcional. Propósito duplo: ferramenta real de uso diário e exercício técnico central de abril 2026.
+
+---
+
+## Stack
+
+React 19 · TypeScript 5.9 (strict) · Vite 7 · Tailwind CSS v4 · ESLint 9 (flat config) · Prettier 3 · Husky 9 · lint-staged
+
+Todas as verificações passando: `npm run lint` · `npx tsc --noEmit` · `npx prettier --check "src/**/*.{ts,tsx}"`
+
+---
+
+## Estrutura de Pastas (src/)
+
+```
+src/
+├── assets/
+├── components/
+│   ├── AppProviders/
+│   └── ui/
+├── contexts/
+├── data/
+├── features/
+├── hooks/
+├── layouts/
+├── pages/
+├── routes/
+├── services/
+├── store/
+├── styles/
+├── types/
+└── utils/
+```
+
+---
+
+## Convenções
+
+**TypeScript:** `import type` para tipos puros · `unknown` em vez de `any` · `type` sobre `interface` · PascalCase para tipos
+
+**React:** arrow functions · PascalCase para componentes e arquivos · props tipadas com `type` · nunca `React.FC`
+
+**Tailwind v4:** sintaxe v4 exclusivamente · configurações via `@theme` no CSS · `@import "tailwindcss"` nunca `@tailwind base`
+
+**Imports:** path alias `@/` para imports internos — nunca `../`
+
+**Commits:** `feat` · `fix` · `chore` · `refactor` · `docs` · `style` · `test`
+
+---
+
+## Paleta de Cores
+
+```css
+--bg: #0d0d0d;
+--surface: #141414;
+--surface2: #1c1c1c;
+--border: #2a2a2a;
+--accent: #e8ff47; /* amarelo-limão — PADRÃO */
+--accent2: #47c4ff; /* azul — Turno A/B */
+--accent3: #ff6b6b; /* vermelho — MÍNIMO */
+--text: #e8e8e0;
+--text-dim: #7a7a72;
+--text-dimmer: #3d3d38;
+--green: #4dff91; /* verde — EXPANSÃO / Folga */
+--orange: #ff9f43;
+```
+
+Tipografia: **Syne** 800 (títulos) + **DM Mono** (corpo/código)
+
+---
+
+## Componentes Mapeados
+
+| Componente    | Props principais                               |
+| ------------- | ---------------------------------------------- |
+| `ModoCard`    | nome, tempo, descricao, gatilho, acento        |
+| `BlocoItem`   | tag, texto                                     |
+| `DiaBox`      | numero, label, blocos: BlocoItem[]             |
+| `TurnoCard`   | titulo, subtitulo, blocos: BlocoItem[], acento |
+| `SemanaCard`  | numero, titulo, objetivo, topicos: string[]    |
+| `MetricaCard` | valor, label, acento                           |
+| `RegraCard`   | icone, titulo, texto                           |
+| `Principio`   | texto                                          |
+| `EntradaCard` | texto, gesto                                   |
+| `Header`      | — composição interna                           |
+| `Footer`      | — composição interna                           |
+
+---
+
+## Tipos — src/types/index.ts
+
+```typescript
+type TagTipo = 'min' | 'pad' | 'exp' | 'opt'
+
+type BlocoItem = {
+  tag: TagTipo
+  texto: string
+}
+
+type ModoData = {
+  nome: string
+  tempo: string
+  descricao: string
+  gatilho: string
+  acento: string
+}
+
+type TurnoData = {
+  titulo: string
+  subtitulo: string
+  blocos: BlocoItem[]
+  acento?: string
+  variante?: 'folga' | 'travado'
+}
+
+type SemanaData = {
+  numero: string
+  titulo: string
+  objetivo: string
+  topicos: string[]
+}
+
+type MetricaData = {
+  valor: string
+  label: string
+  acento: string
+}
+
+type RegraData = {
+  icone: string
+  titulo: string
+  texto: string
+}
+```
+
+---
+
+## Ordem de Construção
+
+1. `src/types/index.ts` — contratos antes de qualquer JSX
+2. `src/data/gradeData.ts` — dados estáticos extraídos do HTML
+3. `BlocoItem` — menor unidade, sem dependências
+4. `ModoCard` — props primitivas apenas
+5. `MetricaCard` — idem
+6. `RegraCard` — idem
+7. `SemanaCard` — usa `string[]`
+8. `TurnoCard` — usa `BlocoItem[]`
+9. `DiaBox` — usa `BlocoItem[]`
+10. `Header` e `Footer`
+11. Composição final em `App.tsx`
+
+---
+
+## Scripts
+
+```bash
+npm run dev                                    # Dev server
+npm run build                                  # Build de produção
+npm run lint                                   # ESLint
+npx tsc --noEmit                               # Type check
+npx prettier --write "src/**/*.{ts,tsx}"       # Formatar
+```
+
+---
+
+## Arquivos de Referência
+
+| Arquivo                         | Função                                   |
+| ------------------------------- | ---------------------------------------- |
+| `.cursor/rules/project.mdc`     | Regras do projeto para o agente          |
+| `vite.config.ts`                | Alias `@/` + Tailwind v4 + SWC           |
+| `tsconfig.app.json`             | Strict mode + paths                      |
+| `eslint.config.js`              | Flat config + Prettier integrado         |
+| `prettier.config.js`            | Sem ponto-e-vírgula, aspas simples       |
+| `.husky/pre-commit`             | Executa lint-staged antes de cada commit |
+| `grade_react_ts_abril2026.html` | Referência visual — raiz do projeto      |
+
+---
+
+## Próximo Passo
+
+Abrir nova janela. Colar este arquivo como contexto. Começar por `src/types/index.ts`.
